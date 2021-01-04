@@ -3,7 +3,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 
-from .models import Exercise, Member
+from .models import Exercise, Member, Workout
+from .forms import WorkoutForm, MemberForm
 
 
 def index(request):
@@ -54,10 +55,58 @@ def exercise_detail(request, exercise_id):
 
 def member_page(request):
     member = Member.objects.get(user=request.user)
+    workouts = member.workout_set.all()
+    total_workouts = workouts.count()
+    in_progres = member.workout_set.filter(status='In progress').count()
+    finished = member.workout_set.filter(status='Finished').count()
+    form = MemberForm()
+    if request.method == 'POST':
+        form = MemberForm(request.POST, request.FILES, instance=member)
+        if form.is_valid():
+            form.save()
+
     context = {
-        'member': member
+        'member': member,
+        'workouts': workouts,
+        'total_workouts': total_workouts,
+        'in_progres': in_progres,
+        'finished': finished,
+        'form': form,
     }
     return render(request, 'user/member.html', context)
+
+
+def create_workout(request):
+    member = Member.objects.get(user=request.user)
+    form = WorkoutForm(request.user)
+    if request.method == 'POST':
+        form = WorkoutForm(request.user, request.POST)
+
+        if form.is_valid():
+            form.instance.user = request.user
+            form.save()
+            return redirect('workouts:member_page')
+    context = {
+        'form': form
+    }
+    return render(request, 'workout_form.html', context)
+
+
+def update_workout(request, id):
+    workout = Workout.objects.get(id=id)
+    form = WorkoutForm(request.user, instance=workout)
+
+    if request.method == 'POST':
+        form = WorkoutForm(request.user, request.POST, instance=workout)
+
+        if form.is_valid():
+            form.instance.workout = workout
+            form.save()
+            return redirect('workouts:member_page')
+    context = {
+        'form': form
+    }
+    return render(request, 'workout_form.html', context)
 
 
 def register_page(request):

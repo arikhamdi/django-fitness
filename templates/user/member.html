@@ -3,33 +3,53 @@
 {% block content %}
 <br> <br> <br>
 <div class="container">
-  Hello {{ member.user|title }}
+
   <br> <br>
-  {% if request.user.member.profile_pic %}
-  <img src="{{ request.user.member.profile_pic.url}}" width="100px" alt=""> <br> <br>
-  {% endif %}
-  <form method="POST" action="" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form }}
-    <button type="submit">Submit</button>
-  </form> <br> <br>
-
-  Total workouts: {{ total_workouts }} <br>
-  Workouts in progress: {{ in_progres }} <br>
-  Finished workouts: {{ finished }} <br> <br>
-  <a href="">Add workout</a>
-  <br>
-
-  {% for workout in workouts %}
   <div class="row">
-    <a href="{% url 'update_workout' workout.id %}">Update workout</a>
-    {{ workout.date_of_working }} <br>
-    {{ workout.name }} <br>
-    {{ workout.status }} <br>
+    <div class="col-sm-4">
+      {% if request.user.member.profile_pic %}
+      <img src="{{ request.user.member.profile_pic.url}}" width="250px" alt=""> <br> <br>
+      {% endif %}
+      <form method="POST" action="" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form }}
+        <button class="btn btn-primary" type="submit">Submit</button>
+      </form> <br> <br>
+
+    </div>
+    <div class="col-sm-8">
+      <h2>Hello, {{ member.user|title }}</h2>
+      <br> <br>
+      Total workouts: {{ total_workouts }} <br>
+      Workouts in progress: {{ in_progres }} <br>
+      Finished workouts: {{ finished }} <br> <br>
+      <a href="{% url 'workouts:create_workout' %}">Add workout</a>
+      <br>
+    </div>
+  </div>
+  {% for workout in workouts %}
+
+
+
+  <hr>
+  <div class="row">
+    <div class="col-sm-12 text-center">
+      <h1>{{ workout.date_of_training}} Workouts</h1>
+      <br><br>
+    </div>
 
     {% for exercise in workout.exercise.all %}
-    {{ exercise }}
-    {{ exercise.content|safe }}
+    <div class="col-sm-2">
+      <h4>{{ exercise|title }}</h4>
+
+      <p>{{ workout.status|title }}</p>
+      <p>{{ workout.name|title }}</p>
+      <a href="{% url 'workouts:update_workout'  workout.id %}">Update workout</a>
+    </div>
+    <div class="col-sm-10">
+      {{ exercise.content|safe }}
+    </div>
+
     {% endfor %}
   </div>
   {% endfor %}

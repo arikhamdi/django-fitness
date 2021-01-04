@@ -18,4 +18,6 @@ urlpatterns = [
     path('login', views.login_page, name='login_page'),
     path('logout', views.logout_page, name='logout_page'),
     path('member', views.member_page, name='member_page'),
+    path('create_workout', views.create_workout, name='create_workout'),
+    path('update_workout/<int:id>', views.update_workout, name='update_workout'),
 ]
