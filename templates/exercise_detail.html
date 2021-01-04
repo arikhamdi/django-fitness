@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br><br><br>
+<center>
+    <h1>{{ exercise.name }}</h1>
+    {{ exercise.content|safe }}
+</center>
+{% endblock content %}

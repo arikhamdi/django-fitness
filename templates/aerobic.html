@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<br><br><br>
+<center>
+  <h1>Aerobic</h1>
+</center>
+<div class="row">
+  {% for exercise in aerobic %}
+  <div class="card" style="width: 18rem;">
+    <img class="card-img-top" src="{{ exercise.image.url }}" height="300px" width="250px" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title text-center">{{ exercise.name }}</h5>
+      <a href="{{ exercise.get_absolute_url }}" class="btn btn-primary">See content</a>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock content %}
