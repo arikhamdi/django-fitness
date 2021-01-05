@@ -3,14 +3,14 @@
 
 {% block content %}
 
-{% include 'banner.html' with content=article%}
+{% include 'banner.html' with content=post%}
 
 <section class="ftco-degree">
   <div class="container">
     <div class="row">
       <div class="col-lg-8 ftco-animate fadeInUp ftco-animated">
-        <h2 class="mb-3">{{ article.title|title }}</h2>
-        {{ article.content|safe }}
+        <h2 class="mb-3">{{ post.title|title }}</h2>
+        {{ post.content|safe }}
 
         <div class="tag-widget post-tag-container mb-5 mt-5">
           <div class="tagcloud">
@@ -21,129 +21,54 @@
           </div>
         </div>
         <div class="about-author d-flex">
-          <div class="bio align-self-md-center mr-5">
-            <img src="images/person_2.jpg" alt="Image placeholder" class="img-fluid mb-4">
+          <div class="bio align-self-md-center col-md-5">
+            <img src="{{ post.autor.profile_pic.url }}" alt="Image placeholder" class="rounded img-fluid mb-4">
           </div>
-          <div class="desc align-self-md-center">
-            <h3>Harry Smith</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, autem necessitatibus voluptate
-              quod mollitia delectus aut, sunt placeat nam vero culpa sapiente consectetur similique, inventore eos
-              fugit cupiditate numquam!</p>
+          <div class="desc align-self-md-center col-md-7">
+            <h3>{{ post.autor }}</h3>
+            <p>{{ post.autor.bio|truncatechars:150|striptags }}</p>
           </div>
         </div>
         <div class="pt-5 mt-5">
-          <h3 class="mb-5">6 Comments</h3>
+          <h3 class="mb-5">{{ counter_comments }} Comment{{ counter_comments|pluralize}}</h3>
           <ul class="comment-list">
+            {% for comment in post.comments.all %}
             <li class="comment">
-              <div class="vcard bio">
-                <img src="images/person_2.jpg" alt="Image placeholder">
-              </div>
-              <div class="comment-body">
-                <h3>John Doe</h3>
-                <div class="meta">Dec 27, 2018 at 2:21pm</div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus,
-                  ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum
-                  impedit necessitatibus, nihil?</p>
-                <p><a href="#" class="reply">Reply</a></p>
-              </div>
-            </li>
-            <li class="comment">
-              <div class="vcard bio">
-                <img src="images/person_1.jpg" alt="Image placeholder">
-              </div>
-              <div class="comment-body">
-                <h3>John Doe</h3>
-                <div class="meta">Dec 27, 2018 at 2:21pm</div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus,
-                  ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum
-                  impedit necessitatibus, nihil?</p>
-                <p><a href="#" class="reply">Reply</a></p>
-              </div>
-              <ul class="children">
-                <li class="comment">
-                  <div class="vcard bio">
-                    <img src="images/person_1.jpg" alt="Image placeholder">
-                  </div>
-                  <div class="comment-body">
-                    <h3>John Doe</h3>
-                    <div class="meta">Dec 27, 2018 at 2:21pm</div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus,
-                      ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum
-                      impedit necessitatibus, nihil?</p>
-                    <p><a href="#" class="reply">Reply</a></p>
-                  </div>
-                  <ul class="children">
-                    <li class="comment">
-                      <div class="vcard bio">
-                        <img src="images/person_1.jpg" alt="Image placeholder">
-                      </div>
-                      <div class="comment-body">
-                        <h3>John Doe</h3>
-                        <div class="meta">Dec 27, 2018 at 2:21pm</div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum
-                          necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure!
-                          Quam voluptas earum impedit necessitatibus, nihil?</p>
-                        <p><a href="#" class="reply">Reply</a></p>
-                      </div>
-                      <ul class="children">
-                        <li class="comment">
-                          <div class="vcard bio">
-                            <img src="images/person_1.jpg" alt="Image placeholder">
-                          </div>
-                          <div class="comment-body">
-                            <h3>John Doe</h3>
-                            <div class="meta">Dec 27, 2018 at 2:21pm</div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum
-                              necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste
-                              iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                            <p><a href="#" class="reply">Reply</a></p>
-                          </div>
-                        </li>
-                      </ul>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-            <li class="comment">
-              <div class="vcard bio">
-                <img src="images/person_1.jpg" alt="Image placeholder">
-              </div>
-              <div class="comment-body">
-                <h3>John Doe</h3>
-                <div class="meta">Dec 27, 2018 at 2:21pm</div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus,
-                  ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum
-                  impedit necessitatibus, nihil?</p>
-                <p><a href="#" class="reply">Reply</a></p>
-              </div>
-            </li>
-          </ul>
 
+              <div class="vcard bio">
+                <img src="{% if comment.member.profile_pic %}{{ comment.member.profile_pic.url }}{%endif%}"
+                  alt="Image placeholder">
+              </div>
+
+              <div class="comment-body ">
+                <h3>{{ comment.member }}</h3>
+                <div class="meta">{{ comment.created }}</div>
+                <p>{{ comment.content }}</p>
+                {% if request.user.member == comment.member or request.user.is_staff %}
+                <div class="text-right">
+                  <a class="text-danger" href="{% url 'blog:comment_delete' comment.id %}">delete comment</a>
+                </div>
+                {% endif %}
+              </div>
+
+            </li>
+            {% endfor %}
+
+          </ul>
+          {% if request.user.is_authenticated %}
           <div class="comment-form-wrap pt-5">
             <h3 class="mb-5">Leave a comment</h3>
-            <form action="#" class="bg-light p-4">
+            <form action="#" method="post" class="bg-light p-4">
+              {% csrf_token %}
               <div class="form-group">
-                <label for="name">Name *</label>
-                <input type="text" class="form-control bg-white" id="name">
-              </div>
-              <div class="form-group">
-                <label for="email">Email *</label>
-                <input type="email" class="form-control" id="email">
-              </div>
-              <div class="form-group">
-                <label for="website">Website</label>
-                <input type="url" class="form-control" id="website">
-              </div>
-              <div class="form-group">
-                <label for="message">Message</label>
-                <textarea name="" id="message" cols="30" rows="10" class="form-control"></textarea>
+                {{ form }}
               </div>
               <div class="form-group">
                 <input type="submit" value="Post Comment" class="btn py-3 px-4 btn-primary">
               </div>
             </form>
           </div>
+          {% endif %}
         </div>
       </div>
       {% include 'blog/blog_sidebar.html' %}

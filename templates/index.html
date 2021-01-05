@@ -201,25 +201,31 @@
 			</div>
 		</div>
 		<div class="row d-flex">
-			{% for blog in recent_blogs %}
-			<div class="col-md-4 d-flex ftco-animate">
-				<div class="blog-entry justify-content-end">
-					<img src="" height="200px" width="200px" alt="">
+
+			{% for post in recent_posts %}
+			<div class="col-md-4 d-flex ftco-animate fadeInUp ftco-animated">
+				<div class="blog-entry">
+					<a href="{{ post.get_absolute_url }}" class="block-20"
+						style="background-image: url('{{ post.image.url}}');">
+					</a>
 					<div class="text p-4 float-right d-block">
 						<div class="meta">
-							<div><a href="#">{{ blog.timestamp }}</a></div>
-							<div><a href="#" class="meta-chat"><span class="icon-chat"></span> {{ blog.comments.count
-									}}</a></div>
+							<div><a href="#">{{post.created}}</a></div>
+							<div><a href="#">{{post.autor}}</a></div>
+							<div><a href="#" class="meta-chat"><span class="icon-chat"></span>
+									{{post.comments.count}}</a></div>
 						</div>
-						<h3 class="heading mt-2"><a href="#">{{ blog.title }}</a></h3>
-						<p>{{ blog.content|truncatechars:100 }}</p>
+						<h3 class="heading mt-2"><a href="{{ post.get_absolute_url }}">{{post.title}}</a></h3>
+						<p>{{post.content|striptags|truncatechars_html:100}}</p>
 					</div>
 				</div>
 			</div>
+
 			{% endfor %}
-
-
 		</div>
+
+
+	</div>
 	</div>
 </section>
 

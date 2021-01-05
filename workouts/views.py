@@ -4,11 +4,16 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 
 from .models import Exercise, Member, Workout, Banner
+from blog.models import Post
 from .forms import WorkoutForm, MemberForm
 
 
 def index(request):
-    return render(request, 'index.html', {})
+    recent_posts = Post.objects.all().order_by('-created')[:3]
+    context = {
+        'recent_posts': recent_posts,
+    }
+    return render(request, 'index.html', context)
 
 
 def bodybuilding(request):

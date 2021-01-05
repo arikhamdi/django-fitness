@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 {% load static %}
+{% load blog_tags %}
 
 <html lang="en">
-  <head>
-  {% include 'head.html' %}
-  </head>
 
-  <body>
+<head>
+  {% include 'head.html' %}
+</head>
+
+<body>
   {% include 'nav.html' %}
   {% block content %}
   {% endblock content %}
 
-  {% include 'footer.html' %}
+  {% show_latest_posts %}
+
   {% include 'scripts.html' %}
-  </body>
+</body>
 
 </html>
