@@ -1,19 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<section class="hero-wrap js-fullheight" style="background-image: url(&quot;images/bg_2.jpg&quot;); height: 661px;">
-  <div class="overlay"></div>
-  <div class="container">
-    <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center"
-      style="height: 661px;">
-      <div class="col-md-9 ftco-animate text-center fadeInUp ftco-animated">
-        <h1 class="mb-3 bread">About Us</h1>
-        <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Contact</span></p>
-      </div>
-    </div>
-  </div>
-</section>
-<section class="ftco-about d-md-flex bg-light">
+
+
+{% include 'banner.html' with content=banner%}
+
+<section class="ftco-about d-md-flex bg-light ftco-degree">
   <div class="one-half img" style="background-image: url({% static 'images/about-2.jpg' %});">
     <a href="https://vimeo.com/45830194" class="icon popup-vimeo d-flex justify-content-center align-items-center">
       <span class="icon-play"></a>

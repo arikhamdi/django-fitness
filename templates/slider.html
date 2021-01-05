@@ -1,6 +1,6 @@
 {% load static %}
 <section class="home-slider js-fullheight owl-carousel ftco-degree-bottom">
-    
+
     {% for slide in slider %}
     <div class="slider-item js-fullheight" style="background-image: url({{ slide.image.url }});">
         <div class="overlay"></div>
@@ -9,8 +9,8 @@
                 data-scrollax-parent="true">
 
                 <div class="col-sm-6 ftco-animate text-center">
-                    <h1 class="mb-4">Fuel Your Body Fitness</h1>
-                    <h2 class="subheading">Be One Of Us</h2>
+                    <h1 class="mb-4">{{ slide.title }}</h1>
+                    <h2 class="subheading">{{ slide.subtitle }}</h2>
                 </div>
 
             </div>

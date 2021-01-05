@@ -17,10 +17,11 @@ class Category(models.Model):
         ('Body Fit', 'Body Fit'),
         ('Gym', 'Gym'),
     )
-    category = models.CharField(max_length=100, choices=TYPE)
+    name = models.CharField(max_length=100, choices=TYPE)
+    description = models.TextField()
 
     def __str__(self) -> str:
-        return self.category
+        return self.name
 
 
 class Exercise(models.Model):
@@ -63,9 +64,44 @@ class Workout(models.Model):
         return self.name
 
 
-class Banner(models.Model):
+class Coach(models.Model):
+    name = models.CharField(max_length=100)
+    profile_pic = models.ImageField(blank=True, null=True, upload_to='coach')
+    category = models.ManyToManyField(Category)
+    bio = HTMLField()
+
+    def image_tag(self):
+        return mark_safe(f'<img src="{self.image.url}" style="width: 250px;" />')
+
+    def __str__(self):
+        return self.name
+
+
+class Slider(models.Model):
     image = models.ImageField(upload_to='banner')
+    title = models.CharField(max_length=100)
+    subtitle = models.CharField(max_length=100)
     created = models.DateTimeField(auto_now_add=True)
 
     def image_tag(self):
         return mark_safe(f'<img src="{self.image.url}" style="width: 250px;" />')
+
+
+class Banner(models.Model):
+    PAGES = (
+        ('about', 'about'),
+        ('contact', 'contact'),
+        ('blog', 'blog'),
+        ('coach', 'coach'),
+        ('program', 'program'),
+    )
+    title = models.CharField(max_length=100)
+    image = models.ImageField(upload_to='banner')
+    created = models.DateTimeField(auto_now_add=True)
+    page = models.CharField(max_length=100, choices=PAGES)
+
+    def image_tag(self):
+        return mark_safe(f'<img src="{self.image.url}" style="width: 250px;" />')
+
+    def __str__(self) -> str:
+        return self.title

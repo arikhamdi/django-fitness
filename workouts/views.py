@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 
-from .models import Exercise, Member, Workout
+from .models import Exercise, Member, Workout, Banner
 from .forms import WorkoutForm, MemberForm
 
 
@@ -110,19 +110,19 @@ def update_workout(request, id):
 
 
 def program(request):
-    return render(request, 'program.html')
+    return render(request, 'program.html', {'banner': Banner.objects.filter(page='program').first})
 
 
 def coach(request):
-    return render(request, 'coach.html')
+    return render(request, 'coach.html', {'banner': Banner.objects.filter(page='coach').first})
 
 
 def about(request):
-    return render(request, 'about.html')
+    return render(request, 'about.html', {'banner': Banner.objects.filter(page='about').first})
 
 
 def contact(request):
-    return render(request, 'contact.html')
+    return render(request, 'contact.html', {'banner': Banner.objects.filter(page='contact').first})
 
 
 def register_page(request):

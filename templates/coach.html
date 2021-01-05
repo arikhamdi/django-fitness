@@ -1,7 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<section class="ftco-section bg-light">
+
+{% include 'banner.html' with content=banner%}
+
+<section class="ftco-degree bg-light">
     <div class="container-fluid">
         <div class="row justify-content-center mb-5">
             <div class="col-md-7 heading-section text-center ftco-animate fadeInUp ftco-animated">

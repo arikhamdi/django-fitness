@@ -6,7 +6,7 @@
             <div class="col-md-9 ftco-animate text-center fadeInUp ftco-animated">
                 <h1 class="mb-3 bread">{{ content.title|title }}</h1>
                 <p class="breadcrumbs"><span class="mr-2"><a href="{% url 'blog:home' %}">Home</a></span>
-                    <span>Article</span>
+                    <span>{% if content.page %}{{ content.page }}{% else %}Article{% endif %}</span>
                 </p>
             </div>
         </div>

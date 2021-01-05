@@ -3,13 +3,13 @@ from django.urls import reverse
 from django.utils.text import slugify
 from tinymce import HTMLField
 
-from workouts.models import Category
+from workouts.models import Category, Coach
 
 
 class Article(models.Model):
-
     title = models.CharField(max_length=100)
-    slug = models.SlugField(blank=True, null=True)
+    slug = models.SlugField(max_length=100, blank=True, null=True)
+    autor = models.ForeignKey(Coach, on_delete=models.CASCADE)
     content = HTMLField()
     image = models.ImageField(max_length=100, upload_to='article')
     category = models.ForeignKey(Category, on_delete=models.CASCADE)

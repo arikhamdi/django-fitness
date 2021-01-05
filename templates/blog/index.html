@@ -3,18 +3,7 @@
 
 {% block content %}
 
-<section class="hero-wrap js-fullheight" style="background-image: url(&quot;images/bg_2.jpg&quot;); height: 661px;">
-  <div class="overlay"></div>
-  <div class="container">
-    <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center"
-      style="height: 661px;">
-      <div class="col-md-9 ftco-animate text-center fadeInUp ftco-animated">
-        <h1 class="mb-3 bread">Our blog</h1>
-        <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>About Us</span></p>
-      </div>
-    </div>
-  </div>
-</section>
+{% include 'banner.html' with content=banner%}
 
 <section class="ftco-degree">
   <div class="container">
@@ -25,23 +14,21 @@
           <div class="col-md-6 d-flex ftco-animate fadeInUp ftco-animated">
             <div class="blog-entry justify-content-end">
               <a href="{{ article.get_absolute_url }}" class="block-20"
-                style="background-image: url({{ article.image.url }});">
+                style="background-image: url('{{ article.image.url }}');">
               </a>
               <div class="text p-4 float-right d-block">
                 <div class="meta">
                   <div><a href="#">{{ article.created }}</a></div>
-                  <div><a href="#">Admin</a></div>
+                  <div><a href="#">{{ article.autor }}</a></div>
                   <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
                 </div>
-                <h3 class="heading mt-2"><a href="#">{{ article.title }}</a></h3>
-                <p>{{ article.content|safe|truncatechars:200 }}</p>
+                <h3 class="heading mt-2"><a href="{{ article.get_absolute_url }}">{{ article.title|title }}</a></h3>
+                <p>{{ article.content|truncatechars_html:200|striptags }}</p>
               </div>
             </div>
           </div>
           {% endfor %}
         </div>
-
-        <!-- pagination -->
         <div class="row mt-5">
           <div class="col text-center">
             <div class="block-27">
@@ -58,9 +45,10 @@
           </div>
         </div>
       </div>
-
       {% include 'blog/blog_sidebar.html' %}
     </div>
   </div>
 </section>
+
+
 {% endblock content %}
