@@ -1,35 +1,14 @@
-{% load static %}
-<section class="home-slider js-fullheight owl-carousel ftco-degree-bottom">
-    
-    {% for slide in banner %}
-    <div class="slider-item js-fullheight" style="background-image: url({{ slide.image.url }});">
-        <div class="overlay"></div>
-        <div class="container">
-            <div class="row slider-text js-fullheight justify-content-center align-items-center"
-                data-scrollax-parent="true">
-
-                <div class="col-sm-6 ftco-animate text-center">
-                    <h1 class="mb-4">Fuel Your Body Fitness</h1>
-                    <h2 class="subheading">Be One Of Us</h2>
-                </div>
-
+<section class="hero-wrap js-fullheight" style="background-image: url({{ content.image.url }}); height: 661px;">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center"
+            style="height: 661px;">
+            <div class="col-md-9 ftco-animate text-center fadeInUp ftco-animated">
+                <h1 class="mb-3 bread">{{ content.title|title }}</h1>
+                <p class="breadcrumbs"><span class="mr-2"><a href="{% url 'blog:home' %}">Home</a></span>
+                    <span>Article</span>
+                </p>
             </div>
         </div>
     </div>
-    {% endfor %}
-
-    <!-- <div class="slider-item js-fullheight" style="background-image: url({% static 'images/bg_2.jpg' %});">
-        <div class="overlay"></div>
-        <div class="container">
-            <div class="row slider-text js-fullheight justify-content-center align-items-center"
-                data-scrollax-parent="true">
-
-                <div class="col-sm-7 ftco-animate text-center">
-                    <h1 class="mb-4">Challenge Yourself</h1>
-                    <h2 class="subheading">Get Your Body Fit</h2>
-                </div>
-
-            </div>
-        </div>
-    </div> -->
 </section>

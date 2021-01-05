@@ -109,6 +109,22 @@ def update_workout(request, id):
     return render(request, 'workout_form.html', context)
 
 
+def program(request):
+    return render(request, 'program.html')
+
+
+def coach(request):
+    return render(request, 'coach.html')
+
+
+def about(request):
+    return render(request, 'about.html')
+
+
+def contact(request):
+    return render(request, 'contact.html')
+
+
 def register_page(request):
     form = UserCreationForm()
     if request.method == 'POST':

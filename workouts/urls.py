@@ -13,6 +13,11 @@ urlpatterns = [
     path('exercise/<int:exercise_id>',
          views.exercise_detail, name='exercise_detail'),
 
+    path('program', views.program, name='program'),
+    path('coach', views.coach, name='coach'),
+    path('about', views.about, name='about'),
+    path('contact', views.contact, name='contact'),
+
     # Members
     path('register', views.register_page, name='register_page'),
     path('login', views.login_page, name='login_page'),

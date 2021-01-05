@@ -13,6 +13,9 @@ class Category(models.Model):
         ('Aerobic', 'Aerobic'),
         ('Weight Lifting', 'Weight Lifting'),
         ('Yoga', 'Yoga'),
+        ('Crossfit', 'Crossfit'),
+        ('Body Fit', 'Body Fit'),
+        ('Gym', 'Gym'),
     )
     category = models.CharField(max_length=100, choices=TYPE)
 
