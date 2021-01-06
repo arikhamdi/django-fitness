@@ -22,11 +22,11 @@
         </div>
         <div class="about-author d-flex">
           <div class="bio align-self-md-center col-md-5">
-            <img src="{{ post.autor.profile_pic.url }}" alt="Image placeholder" class="rounded img-fluid mb-4">
+            <img src="{{ post.autor.image.url }}" alt="Image placeholder" class="rounded img-fluid mb-4">
           </div>
           <div class="desc align-self-md-center col-md-7">
             <h3>{{ post.autor }}</h3>
-            <p>{{ post.autor.bio|truncatechars:150|striptags }}</p>
+            <p>{{ post.autor.bio|truncatechars_html:150|striptags }}</p>
           </div>
         </div>
         <div class="pt-5 mt-5">
