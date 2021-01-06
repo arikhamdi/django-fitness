@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Exercise, Member, Banner, Workout, Slider, Coach
+from .models import Category, Exercise, Member, Banner, Workout, Slider, Coach, Comments_coach
 
 
 class SliderAdmin(admin.ModelAdmin):
@@ -18,6 +18,7 @@ admin.site.register(Category)
 admin.site.register(Exercise)
 admin.site.register(Member)
 admin.site.register(Workout)
+admin.site.register(Comments_coach)
 admin.site.register(Coach, CoachAdmin)
 admin.site.register(Slider, SliderAdmin)
 admin.site.register(Banner, BannerAdmin)

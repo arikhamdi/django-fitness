@@ -31,9 +31,8 @@ def blog_detail(request, slug):
     post = get_object_or_404(Post, slug=slug)
     form = CommentForm(request.POST or None)
     if request.method == 'POST':
-        member = get_object_or_404(Member, user=request.user)
         if form.is_valid():
-            form.instance.member = member
+            form.instance.user = request.user
             form.instance.post = post
             form.save()
             return redirect(reverse('blog:blog_detail', kwargs={
@@ -55,4 +54,3 @@ def comment_delete(request, id):
     return redirect(reverse('blog:blog_detail', kwargs={
         'slug': post.slug
     }))
-

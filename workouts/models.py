@@ -66,7 +66,7 @@ class Workout(models.Model):
 
 class Coach(models.Model):
     name = models.CharField(max_length=100)
-    profile_pic = models.ImageField(blank=True, null=True, upload_to='coach')
+    image = models.ImageField(blank=True, null=True, upload_to='coach')
     category = models.ManyToManyField(Category)
     bio = HTMLField()
 
@@ -75,6 +75,26 @@ class Coach(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('workouts:coach_detail', kwargs={
+            'coach_id': self.id
+        })
+
+    @property
+    def get_comments(self):
+        return self.comments_coach.all().order_by('-created')
+
+
+class Comments_coach(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True)
+    content = models.TextField()
+    coach = models.ForeignKey(
+        Coach, related_name='comments_coach', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.user} on {self.coach.name}"
 
 
 class Slider(models.Model):

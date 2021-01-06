@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+{% include 'banner.html' with content=coach%}
+
+<section class="ftco-degree">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 ftco-animate fadeInUp ftco-animated">
+                <h2 class="mb-3">{{ coach.name|title }}</h2>
+                {{ coach.bio|safe }}
+
+                <div class="tag-widget post-tag-container mb-5 mt-5">
+                    <div class="tagcloud">
+                        {% for cat in coach.category.all %}
+                        <a href="#" class="tag-cloud-link">{{cat}}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="pt-5 mt-5">
+                    <h3 class="mb-5">{{ counter_comments }} Comment{{ counter_comments|pluralize}}</h3>
+                    <ul class="comment-list">
+                        {% for comment in coach.comments_coach.all %}
+                        <li class="comment">
+
+                            <div class="vcard bio">
+                                <img src="{% if comment.user.member.profile_pic %}{{ comment.user.member.profile_pic.url }}{%endif%}"
+                                    alt="Image placeholder">
+                            </div>
+
+                            <div class="comment-body ">
+                                <h3>{{ comment.user }}</h3>
+                                <div class="meta">{{ comment.created }}</div>
+                                <p>{{ comment.content }}</p>
+                                {% if request.user == comment.user or request.user.is_staff %}
+                                <div class="text-right">
+                                    <a class="text-danger" href="{% url 'blog:comment_delete' comment.id %}">delete
+                                        comment</a>
+                                </div>
+                                {% endif %}
+                            </div>
+
+                        </li>
+                        {% endfor %}
+
+                    </ul>
+                    {% if request.user.is_authenticated %}
+                    <div class="comment-form-wrap pt-5">
+                        <h3 class="mb-5">Leave a comment</h3>
+                        <form action="#" method="post" class="bg-light p-4">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                {{ form }}
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Post Comment" class="btn py-3 px-4 btn-primary">
+                            </div>
+                        </form>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

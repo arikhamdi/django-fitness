@@ -33,11 +33,11 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
-    member = models.ForeignKey(Member, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     content = models.TextField()
     post = models.ForeignKey(
         Post, related_name='comments', on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.member} on {self.post.title}"
+        return f"{self.user} on {self.post.title}"

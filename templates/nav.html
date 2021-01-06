@@ -9,7 +9,7 @@
     <div class="collapse navbar-collapse" id="ftco-nav">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item active"><a href="{% url 'workouts:home' %}" class="nav-link">Home</a></li>
-        {% if request.user.is_authenticated %}
+        {% if request.user.is_authenticated and not request.user.is_staff%}
         <li class="nav-item"><a href="{% url 'workouts:member_page' %}" class="nav-link">See profile</a></li>
         {% endif %}
         <li class="nav-item"><a href="{% url 'workouts:program' %}" class="nav-link">Program</a></li>

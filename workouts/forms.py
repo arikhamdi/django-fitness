@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ModelForm
 
-from .models import Workout, Member
+from .models import Workout, Member, Comments_coach
 
 
 class DateInput(forms.DateInput):
@@ -25,3 +25,16 @@ class MemberForm(ModelForm):
     class Meta:
         model = Member
         fields = ['profile_pic']
+
+
+class Comments_coachForm(forms.ModelForm):
+    content = forms.CharField(label='Message', widget=forms.Textarea(attrs={
+        'class': 'form-control',
+        'id': 'usercomment',
+        'rows': '10',
+        'cols': '3',
+    }))
+
+    class Meta:
+        model = Comments_coach
+        fields = ['content', ]

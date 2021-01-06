@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 
-from .models import Exercise, Member, Workout, Banner
+from .models import Exercise, Member, Workout, Banner, Coach
 from blog.models import Post
-from .forms import WorkoutForm, MemberForm
+from .forms import WorkoutForm, MemberForm, Comments_coachForm
 
 
 def index(request):
@@ -18,7 +19,7 @@ def index(request):
 
 def bodybuilding(request):
     bodyBuildingExercises = Exercise.objects.filter(
-        category__category='Body Building')
+        category__name='Body Building')
     context = {
         'bodyBuildingExercises': bodyBuildingExercises
     }
@@ -26,7 +27,7 @@ def bodybuilding(request):
 
 
 def aerobic(request):
-    aerobic = Exercise.objects.filter(category__category='Aerobic')
+    aerobic = Exercise.objects.filter(category__name='Aerobic')
     context = {
         'aerobic': aerobic
     }
@@ -35,7 +36,7 @@ def aerobic(request):
 
 def weightlifting(request):
     weightlifting = Exercise.objects.filter(
-        category__category='Weight Lifting')
+        category__name='Weight Lifting')
     context = {
         'weightlifting': weightlifting
     }
@@ -43,7 +44,7 @@ def weightlifting(request):
 
 
 def yoga(request):
-    yoga = Exercise.objects.filter(category__category='Yoga')
+    yoga = Exercise.objects.filter(category__name='Yoga')
     context = {
         'yoga': yoga
     }
@@ -119,7 +120,31 @@ def program(request):
 
 
 def coach(request):
-    return render(request, 'coach.html', {'banner': Banner.objects.filter(page='coach').first})
+    coaches = Coach.objects.all().order_by('name')
+    context = {
+        'coaches': coaches,
+        'banner': Banner.objects.filter(page='coach').first,
+    }
+    return render(request, 'coach.html', context)
+
+
+def coach_detail(request, coach_id):
+    coach = get_object_or_404(Coach, id=coach_id)
+    form = Comments_coachForm(request.POST or None)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.instance.user = request.user
+            form.instance.coach = coach
+            form.save()
+            return redirect(reverse('workouts:coach_detail', kwargs={
+                'coach_id': coach.id
+            }))
+    context = {
+        'coach': coach,
+        'form': form,
+        'counter_comments': coach.comments_coach.count()
+    }
+    return render(request, 'coach_detail.html', context)
 
 
 def about(request):
