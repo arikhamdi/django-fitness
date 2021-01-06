@@ -2,15 +2,18 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
+<section class="hero-wrap" style="background-color:black; height: 125px;">
+</section>
 
+<section class="ftco-degree"></section>
 <div class="container">
-  <br> <br> <br>
   <h1>Register</h1>
   <form method="POST">
     {% csrf_token %}
     {{ form|crispy }}
     <button class="btn btn-primary" type="submit">Register</button>
   </form>
-  <br> <br> <br>
 </div>
+<br><br><br>
+</section>
 {% endblock content %}

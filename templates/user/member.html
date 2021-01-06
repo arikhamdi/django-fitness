@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<br> <br> <br>
+<section class="hero-wrap" style="background-color:black; height: 125px;">
+</section>
+<section class="ftco-degree"></section>
 <div class="container">
-
-  <br> <br>
   <div class="row">
     <div class="col-sm-4">
       {% if request.user.member.profile_pic %}
@@ -27,11 +27,7 @@
       <br>
     </div>
   </div>
-  {% for workout in workouts %}
-
-
-
-  <hr>
+  </section {% for workout in workouts %} <hr>
   <div class="row">
     <div class="col-sm-12 text-center">
       <h1>{{ workout.date_of_training}} Workouts</h1>
