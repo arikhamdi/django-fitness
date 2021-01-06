@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 
 from django.db.models import Count
 
-from .models import Exercise, Member, Workout, Banner, Coach, Category
+from .models import Exercise, Member, Workout, Banner, Coach, Category, Insta_Gallery
 from blog.models import Post
 from .forms import WorkoutForm, MemberForm, Comments_coachForm
 
@@ -27,9 +27,12 @@ def index(request):
     sorted_categories = sorted(
         categories.items(), key=lambda x: x[1][0], reverse=True)
 
+    # get pics from insta_gallery model
+    gallery = Insta_Gallery.objects.all().order_by('-created')[:7]
     context = {
         'recent_posts': recent_posts,
-        'categories': sorted_categories[:4]
+        'categories': sorted_categories[:4],
+        'gallery': gallery
     }
     return render(request, 'index.html', context)
 

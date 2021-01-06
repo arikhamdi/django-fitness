@@ -192,7 +192,7 @@
 	</div>
 </section>
 
-
+<!-- Instagram gallery -->
 
 <section class="ftco-gallery">
 	<div class="container-wrap">
@@ -207,62 +207,17 @@
 					</div>
 				</div>
 			</div>
+			{% for picture in gallery %}
 			<div class="col-md-3 ftco-animate">
-				<a href="images/gallery-2.jpg" class="gallery image-popup img d-flex align-items-center"
-					style="background-image: url(images/gallery-2.jpg);">
+				<a href="{{picture.image.url}}" class="gallery image-popup img d-flex align-items-center"
+					style="background-image: url('{{picture.image.url}}');">
 					<div class="icon mb-4 d-flex align-items-center justify-content-center">
 						<span class="icon-instagram"></span>
 					</div>
 				</a>
 			</div>
-			<div class="col-md-3 ftco-animate">
-				<a href="images/gallery-3.jpg" class="gallery image-popup img d-flex align-items-center"
-					style="background-image: url(images/gallery-3.jpg);">
-					<div class="icon mb-4 d-flex align-items-center justify-content-center">
-						<span class="icon-instagram"></span>
-					</div>
-				</a>
-			</div>
-			<div class="col-md-3 ftco-animate">
-				<a href="images/gallery-4.jpg" class="gallery image-popup img d-flex align-items-center"
-					style="background-image: url(images/gallery-4.jpg);">
-					<div class="icon mb-4 d-flex align-items-center justify-content-center">
-						<span class="icon-instagram"></span>
-					</div>
-				</a>
-			</div>
-			<div class="col-md-3 ftco-animate">
-				<a href="images/gallery-1.jpg" class="gallery image-popup img d-flex align-items-center"
-					style="background-image: url(images/gallery-5.jpg);">
-					<div class="icon mb-4 d-flex align-items-center justify-content-center">
-						<span class="icon-instagram"></span>
-					</div>
-				</a>
-			</div>
-			<div class="col-md-3 ftco-animate">
-				<a href="images/gallery-2.jpg" class="gallery image-popup img d-flex align-items-center"
-					style="background-image: url(images/gallery-6.jpg);">
-					<div class="icon mb-4 d-flex align-items-center justify-content-center">
-						<span class="icon-instagram"></span>
-					</div>
-				</a>
-			</div>
-			<div class="col-md-3 ftco-animate">
-				<a href="images/gallery-3.jpg" class="gallery image-popup img d-flex align-items-center"
-					style="background-image: url(images/gallery-7.jpg);">
-					<div class="icon mb-4 d-flex align-items-center justify-content-center">
-						<span class="icon-instagram"></span>
-					</div>
-				</a>
-			</div>
-			<div class="col-md-3 ftco-animate">
-				<a href="images/gallery-4.jpg" class="gallery image-popup img d-flex align-items-center"
-					style="background-image: url(images/gallery-8.jpg);">
-					<div class="icon mb-4 d-flex align-items-center justify-content-center">
-						<span class="icon-instagram"></span>
-					</div>
-				</a>
-			</div>
+			{% endfor %}
+
 		</div>
 	</div>
 </section>

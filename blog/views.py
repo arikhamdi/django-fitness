@@ -7,7 +7,7 @@ from workouts.models import Category, Banner, Member
 
 
 def counter_categories():
-    categories = Category.objects.all().order_by('name')
+    categories = Category.objects.all().order_by('title')
     counter = {}
     for category in categories:
         counter[category] = Post.objects.filter(

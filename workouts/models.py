@@ -110,6 +110,14 @@ class Comments_coach(models.Model):
         return f"{self.user} on {self.coach.name}"
 
 
+class Insta_Gallery(models.Model):
+    image = models.ImageField(upload_to='insta_gallery')
+    created = models.DateTimeField(auto_now_add=True)
+
+    def image_tag(self):
+        return mark_safe(f'<img src="{self.image.url}" style="width: 250px;" />')
+
+
 class Slider(models.Model):
     image = models.ImageField(upload_to='banner')
     title = models.CharField(max_length=100)
