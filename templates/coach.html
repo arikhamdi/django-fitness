@@ -16,9 +16,11 @@
             <div class="col-lg-3 d-flex">
                 <div
                     class="coach {% if forloop.counter|divisibleby:2  %}d-md-flex flex-column-reverse{% endif %} align-items-stretch">
+                    {% if coach.image %}
                     <a href="{{ coach.get_absolute_url }}">
                         <div class="img" style="background-image: url('{{ coach.image.url }}');"></div>
                     </a>
+                    {% endif %}
                     <div class="text bg-white p-4 ftco-animate fadeInUp ftco-animated">
                         <span class="subheading">Owner / Head Coach</span>
                         <h3><a href="{{ coach.get_absolute_url }}">{{ coach.name }}</a></h3>

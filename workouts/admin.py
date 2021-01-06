@@ -11,7 +11,7 @@ class BannerAdmin(admin.ModelAdmin):
 
 
 class CoachAdmin(admin.ModelAdmin):
-    list_display = ('name', 'image_tag',)
+    list_display = ('name',)
 
 
 class Insta_GalleryAdmin(admin.ModelAdmin):
