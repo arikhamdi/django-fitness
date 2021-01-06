@@ -6,14 +6,11 @@ app_name = 'workouts'
 
 urlpatterns = [
     path('', views.index, name='home'),
-    path('bodybuilding', views.bodybuilding, name='bodybuilding'),
-    path('aerobic', views.aerobic, name='aerobic'),
-    path('weightlifting', views.weightlifting, name='weightlifting'),
-    path('yoga', views.yoga, name='yoga'),
     path('exercise/<int:exercise_id>',
          views.exercise_detail, name='exercise_detail'),
 
     path('program', views.program, name='program'),
+    path('program/<slug:slug>', views.program_detail, name='program_detail'),
     path('coach', views.coach, name='coach'),
     path('coach/<int:coach_id>', views.coach_detail, name='coach_detail'),
     path('about', views.about, name='about'),

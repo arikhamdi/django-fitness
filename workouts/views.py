@@ -4,51 +4,34 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 
-from .models import Exercise, Member, Workout, Banner, Coach
+from django.db.models import Count
+
+from .models import Exercise, Member, Workout, Banner, Coach, Category
 from blog.models import Post
 from .forms import WorkoutForm, MemberForm, Comments_coachForm
 
 
 def index(request):
     recent_posts = Post.objects.all().order_by('-created')[:3]
+
+    # Display categories on homepage sorted by number of exercices desc
+    most_categories = Category.objects.annotate(
+        number_of_exercises=Count('exercise'))
+    categories = {}
+    for cat in most_categories:
+        # get the category only if it has exercises in it
+        if cat.number_of_exercises > 0:
+            categories[cat.title] = [cat.number_of_exercises,
+                                     cat.slug, cat.image, cat.description]
+    # dict sorted by number of exercises
+    sorted_categories = sorted(
+        categories.items(), key=lambda x: x[1][0], reverse=True)
+
     context = {
         'recent_posts': recent_posts,
+        'categories': sorted_categories[:4]
     }
     return render(request, 'index.html', context)
-
-
-def bodybuilding(request):
-    bodyBuildingExercises = Exercise.objects.filter(
-        category__name='Body Building')
-    context = {
-        'bodyBuildingExercises': bodyBuildingExercises
-    }
-    return render(request, 'bodybuilding.html', context)
-
-
-def aerobic(request):
-    aerobic = Exercise.objects.filter(category__name='Aerobic')
-    context = {
-        'aerobic': aerobic
-    }
-    return render(request, 'aerobic.html', context)
-
-
-def weightlifting(request):
-    weightlifting = Exercise.objects.filter(
-        category__name='Weight Lifting')
-    context = {
-        'weightlifting': weightlifting
-    }
-    return render(request, 'weightlifting.html', context)
-
-
-def yoga(request):
-    yoga = Exercise.objects.filter(category__name='Yoga')
-    context = {
-        'yoga': yoga
-    }
-    return render(request, 'yoga.html', context)
 
 
 def exercise_detail(request, exercise_id):
@@ -116,7 +99,22 @@ def update_workout(request, id):
 
 
 def program(request):
-    return render(request, 'program.html', {'banner': Banner.objects.filter(page='program').first})
+    categories = Category.objects.all().order_by('title')
+    context = {
+        'categories': categories,
+        'banner': Banner.objects.filter(page='program').first
+    }
+    return render(request, 'program.html', context)
+
+
+def program_detail(request, slug):
+    category = get_object_or_404(Category, slug=slug)
+    exercises = Exercise.objects.filter(category=category)
+    context = {
+        'category': category,
+        'exercises': exercises
+    }
+    return render(request, 'program_detail.html', context)
 
 
 def coach(request):

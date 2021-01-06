@@ -122,60 +122,22 @@
 			</div>
 		</div>
 		<div class="row">
+			{% for cat in categories %}
 			<div class="col-md-6 col-lg-3">
 				<div class="package-program ftco-animate">
-					<a href="{% url 'workouts:bodybuilding' %}"
+					<a href="{% url 'workouts:program_detail' cat.1.1 %}"
 						class="img d-flex justify-content-center align-items-center"
-						style="background-image: url({% static 'images/program-1.jpg' %});">
+						style="background-image: url('{{cat.1.2.url}}');">
 						<span>See Exercise</span>
 					</a>
 					<div class="text mt-3">
-						<h3><a href="#">Body Building</a></h3>
+						<h3><a href="{% url 'workouts:program_detail' cat.1.1 %}">{{cat.0}}</a></h3>
 						<p>A small river named Duden flows by their place and supplies it with the necessary regelialia.
 						</p>
 					</div>
 				</div>
 			</div>
-			<div class="col-md-6 col-lg-3">
-				<div class="package-program ftco-animate">
-					<a href="{% url 'workouts:aerobic' %}" class="img d-flex justify-content-center align-items-center"
-						style="background-image: url({% static 'images/program-2.jpg' %});">
-						<span>See exercise</span>
-					</a>
-					<div class="text mt-3">
-						<h3><a href="#">Aerobic Classes</a></h3>
-						<p>A small river named Duden flows by their place and supplies it with the necessary regelialia.
-						</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-6 col-lg-3">
-				<div class="package-program ftco-animate">
-					<a href="{% url 'workouts:weightlifting' %}"
-						class="img d-flex justify-content-center align-items-center"
-						style="background-image: url({% static 'images/program-3.jpg' %});">
-						<span>Learn More</span>
-					</a>
-					<div class="text mt-3">
-						<h3><a href="{% url 'workouts:weightlifting' %}">Weight Lifting</a></h3>
-						<p>A small river named Duden flows by their place and supplies it with the necessary regelialia.
-						</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-6 col-lg-3">
-				<div class="package-program ftco-animate">
-					<a href="{% url 'workouts:yoga' %}" class="img d-flex justify-content-center align-items-center"
-						style="background-image: url({% static 'images/program-4.jpg' %});">
-						<span>Learn More</span>
-					</a>
-					<div class="text mt-3">
-						<h3><a href="{% url 'workouts:yoga' %}">Yoga Classes</a></h3>
-						<p>A small river named Duden flows by their place and supplies it with the necessary regelialia.
-						</p>
-					</div>
-				</div>
-			</div>
+			{% endfor %}
 		</div>
 	</div>
 	<div class="container">

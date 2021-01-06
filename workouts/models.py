@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.utils.text import slugify
 from django.contrib.auth.models import User
 from django.db.models.fields import DateField
 
@@ -17,11 +18,23 @@ class Category(models.Model):
         ('Body Fit', 'Body Fit'),
         ('Gym', 'Gym'),
     )
-    name = models.CharField(max_length=100, choices=TYPE)
+    title = models.CharField(max_length=100, choices=TYPE)
+    slug = models.SlugField(max_length=100, blank=True, null=True)
     description = models.TextField()
+    image = models.ImageField(upload_to='program')
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super(Category, self).save(*args, **kwargs)
 
     def __str__(self) -> str:
-        return self.name
+        return self.title
+
+    def get_absolute_url(self):
+        return reverse('workouts:program_detail', kwargs={
+            'slug': self.slug
+        })
 
 
 class Exercise(models.Model):

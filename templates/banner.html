@@ -7,7 +7,7 @@
             <div class="col-md-9 ftco-animate text-center fadeInUp ftco-animated">
                 <h1 class="mb-3 bread">{{ content.title|title }}</h1>
                 <p class="breadcrumbs"><span class="mr-2"><a href="{% url 'blog:home' %}">Home</a></span>
-                    <span>{% if content.page %}{{ content.page }}{% else %}Article{% endif %}</span>
+                    <span>{% if content.page %}{{ content.page }}{% endif %}</span>
                 </p>
             </div>
             {% endif %}

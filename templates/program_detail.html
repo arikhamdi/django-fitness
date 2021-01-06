@@ -2,13 +2,13 @@
 
 {% block content %}
 
-<br><br><br>
-<center>
-  <h1>Body Building Exercises</h1>
-</center>
-<div class="row">
+{% include 'banner.html' with content=category%}
 
-  {% for exercise in bodyBuildingExercises%}
+<section class="ftco-degree"></section>
+
+<div class="row">
+  {% for exercise in exercises %}
+
   <div class="card" style="width: 18rem;">
     <img class="card-img-top" src="{{ exercise.image.url }}" height="300px" width="250px" alt="Card image cap">
     <div class="card-body text-center">
